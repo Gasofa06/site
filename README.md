@@ -13,4 +13,4 @@ Instalar git en el dispositivo. Instalar la extension GitLens para el dispositiv
 Primero instale git en el dispositivo. For Debian-based distribution, such as Ubuntu: 
 `$ sudo apt install git-all`
 
-$ git clone git@github.com:fabe/site.git
+$ git clone git@github.com:fabe/site.git# site
