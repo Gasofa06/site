@@ -1,0 +1,244 @@
+@layer buttons {
+  button {
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease-in-out;
+  }
+
+  @layer model-green {
+    button.model-green {
+      display: inline-flex;
+      align-items: center;
+
+      font-weight: 500;
+
+      border: none;
+      border-radius: 4px;
+      background-color: var(--green);
+    }
+
+    [theme='light'] button.model-green {
+      color: var(--white);
+    }
+
+    [theme='dark'] button.model-green {
+      color: var(--black);
+    }
+
+    button.model-green:hover {
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      button.model-green {
+        padding: 10px 24px;
+        font-size: 0.94rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      button.model-green {
+        padding: 8px 18px;
+        font-size: 0.82rem;
+      }
+    }
+  }
+
+  @layer btn-model-three {
+    button.btn-model-three {
+      display: inline-flex;
+      align-items: center;
+
+      height: 100%;
+
+      margin: 0;
+      padding: 10px 16px;
+
+      border: none;
+      border-radius: 32px;
+
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+
+    button.btn-model-three > svg {
+      width: 12px;
+      height: 12px;
+      margin-left: 8px;
+
+      fill: none;
+      transition: all 0.3s ease-in-out;
+      transition-duration: 130ms !important;
+    }
+
+    button.btn-model-three > svg path,
+    button.btn-model-three > svg line {
+      stroke-width: 3;
+      stroke: currentColor;
+    }
+
+    button.btn-model-three > svg path {
+      transform-origin: 12.5px 7.5px;
+      transform: translateX(-4px);
+      transition: inherit;
+    }
+
+    button.btn-model-three:hover > svg path {
+      transform: none;
+    }
+
+    button.btn-model-three > svg line {
+      opacity: 0;
+      transition: inherit;
+    }
+
+    button.btn-model-three:hover > svg line {
+      opacity: 1;
+    }
+
+    @layer black {
+      button.btn-model-three.black {
+        color: var(--white);
+        background-color: var(--black);
+      }
+
+      button.btn-model-three.black > svg {
+        color: var(--white);
+      }
+    }
+
+    @layer white {
+      button.btn-model-three.white {
+        color: var(--black);
+        background-color: var(--white);
+      }
+
+      button.btn-model-three.white > svg {
+        color: var(--black);
+      }
+    }
+  }
+
+  @layer btn-model-five {
+    button.btn_model_five {
+      display: inline-flex;
+      align-items: center;
+
+      border: none;
+      background-color: transparent;
+
+      font-weight: 400;
+      font-size: 0.88rem;
+      color: var(--gray);
+    }
+
+    button.btn_model_five > svg {
+      width: 10px;
+      height: 10px;
+      margin-left: 8px;
+
+      color: var(--gray);
+
+      fill: none;
+      transition: all 0.3s ease-in-out;
+      transition-duration: 130ms !important;
+    }
+
+    button.btn_model_five > svg path,
+    button.btn_model_five > svg line {
+      stroke-width: 2;
+      stroke: currentColor;
+    }
+
+    button.btn_model_five > svg path {
+      transform-origin: 12.5px 7.5px;
+      transform: translateX(-4px);
+      transition: inherit;
+    }
+
+    button.btn_model_five:hover > svg path {
+      transform: none;
+    }
+
+    button.btn_model_five > svg line {
+      opacity: 0;
+      transition: inherit;
+    }
+
+    button.btn_model_five:hover > svg line {
+      opacity: 1;
+    }
+  }
+}
+
+@layer double-column {
+  .double-column {
+    margin: 0;
+    padding: 82px 0 41px;
+
+    grid-row-gap: 4rem;
+    grid-column-gap: 1.5rem;
+  }
+
+  @media (min-width: 1080px) {
+    .double-column {
+      display: grid;
+      grid-auto-columns: 1fr;
+      grid-template-rows: auto;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 1080px) {
+    .double-column {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+    }
+  }
+
+  .double-column > * {
+    position: relative;
+  }
+
+  @layer columns {
+    /* 
+     * The style depends on which column will
+     * be the larger one: left or right. 
+     */
+
+    .double-column.left > div:first-of-type {
+      grid-column: span 6 / span 6;
+      grid-column-start: 1;
+      grid-row: 1;
+    }
+
+    .double-column.left > div:last-of-type {
+      grid-column: span 5 / span 5;
+      grid-column-start: 8;
+    }
+
+    .double-column.right > div:first-of-type {
+      grid-column: span 5 / span 5;
+      grid-column-start: 1;
+      grid-row: 1;
+    }
+
+    .double-column.right > div:last-of-type {
+      grid-column: span 6 / span 6;
+      grid-column-start: 7;
+    }
+  }
+
+  .double-column p {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  @media (min-width: 480px) and (max-width: 1080px) {
+    .double-column p {
+      margin-right: 82px;
+    }
+  }
+}

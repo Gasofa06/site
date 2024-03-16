@@ -1,0 +1,81 @@
+@import '/styles/palette.css';
+@import '/styles/models.css';
+@import '/styles/text.css';
+
+:root {
+  --max-width: 1468px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --borders-pad: 54px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --borders-pad: 32px;
+  }
+}
+
+@layer scrollbar {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 100px;
+  }
+
+  [theme='light'] :hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  [theme='light'] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  [theme='dark'] :hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  [theme='dark'] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+@layer selection {
+  [theme='light'] ::selection {
+    background: #ebfef3;
+    color: #28b460;
+  }
+
+  [theme='dark'] ::selection {
+    background: #073018;
+    color: #a5e6bf;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--white);
+}
+
+main {
+  min-height: 100vh;
+}
+
+main > * {
+  padding-left: var(--borders-pad);
+  padding-right: var(--borders-pad);
+}
+
+li {
+  list-style: none;
+}
