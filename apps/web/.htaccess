@@ -1,0 +1,19 @@
+ReWriteEngine on
+RewriteBase /
+
+RewriteRule ^$ /layouts/main/home.php [L]
+
+RewriteRule ^work$ /layouts/main/work.php [L]
+RewriteRule ^posts$ /layouts/main/posts.php [L]
+RewriteRule ^about$ /layouts/main/about.php [L]
+RewriteRule ^globe$ /layouts/main/globe.php [L]
+RewriteRule ^photos$ /layouts/main/photos.php [L]
+
+RewriteRule ^contact$ /layouts/main/contact.php [L]
+RewriteRule ^imprint$ /layouts/main/imprint.php [L]
+RewriteRule ^privacy$ /layouts/main/privacy.php [L]
+RewriteRule ^colphon$ /layouts/main/colphon.php [L]
+
+RewriteRule ^reuse/notice$ /layouts/reuse/notice.php [L]
+RewriteRule ^reuse/footer$ /layouts/reuse/footer.php [L]
+RewriteRule ^reuse/navigation$ /layouts/reuse/navigation.php [L]
