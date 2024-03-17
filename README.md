@@ -1,6 +1,47 @@
-# Roger's Website
+<div alt style="text-align: center;">
+	<picture>
+		<source media="(prefers-color-scheme: dark)" srcset="/apps/docs/assets/web-sample.png"/>
+		<img alt="Roger's website." src="/apps/docs/assets/web-sample.png"/>
+	</picture>
+</div>
+
+<br>
+
+> ✨ Navigate at [rogerrovira.com](https://rogerrovira.com)
 
 This is the source code of my [personal site](https://rogerrovira.com).
+
+For formatter is recommended to install "Prettier - Code formatter" and "php cd
+fixer"
+
+## PHP formatter
+
+Install composer https://getcomposer.org/download/ !important
+
+```
+sudo php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+
+sudo php composer-setup.php
+
+sudo php -r "unlink('composer-setup.php');"
+```
+
+Most likely, you want to put the composer.phar into a directory on your PATH, so
+you can simply call composer from any directory (Global install), using for
+example:
+
+sudo mv composer.phar /usr/local/bin/composer
+
+## Installation
+
+The recommended way to install PHP CS Fixer is to use Composer in a dedicated
+composer.json file in your project, for example in the tools/php-cs-fixer
+directory: https://github.com/PHP-CS-Fixer/PHP-CS-Fixer
+
+`mkdir -p tools/php-cs-fixer `
+`composer require --working-dir=tools/php-cs-fixer friendsofphp/php-cs-fixer`
 
 ## Update your system
 
