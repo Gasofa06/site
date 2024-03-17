@@ -2,61 +2,129 @@
 
 This is the source code of my [personal site](https://rogerrovira.com).
 
-## Installation
-El codigo ets pensado apra funcionar en un dispositivo con Linux.
+## Update your system
 
-Pa poder acceder remotamente al dispositivo mediante SSH, primero se debe instalar la extension Remote-SSH en VS code.
-Una vez instalada, se debe buscar la direccion IP en del dispositivo y acceder a el.
+Before installing any new software, you should update your system to ensure that
+all packages are up to date. You can do this by running the following command in
+the terminal:
 
-Instalar git en el dispositivo. Instalar la extension GitLens para el dispositivo.
+`$ sudo apt update && sudo apt upgrade`
 
-Primero instale git en el dispositivo. For Debian-based distribution, such as Ubuntu: 
+## Install Apache
 
-$ sudo apt install git-all
-$ git clone git@github.com:fabe/site.git# site
+To install Apache on Ubuntu 22.04 or Debian [version], run the following command
+in the terminal:
 
+`$ sudo apt install apache2`
 
-## Download the latest Nginx and PHP packages
-Every software install in Ubuntu should start with a quick apt-get update and possibly an apt-get upgrade command.
+Once the installation is complete, you can start the Apache service by running
+the following command:
 
-$ sudo apt-get update -y
-$ sudo apt-get upgrade -y
+`$ sudo systemctl start apache2`
 
+Comprovate:
 
-## Install Nginx on Ubuntu
-To install PHP on Nginx, you must first install Nginx, which you can achieve through a simple apt-get install command:
+`$ sudo systemctl status apache2`
 
-$ sudo apt-get install nginx -y
+It should return you:
 
-Verify the running Nginx server
-To verify the successful installation and configuration of Nginx on Ubuntu, query the HTTP server’s status:
+```
+(...)
+Active: active (running)
+(...)
+```
 
-$ sudo systemctl status nginx
-    Active: active (Nginx running)
+## Habilita mod_rewrite
 
-## Install PHP for Nginx
-To install PHP for Nginx, support with another apt-get install command:
+El siguiente paso es activar mod_rewrite. El comando para hacerlo es:
 
-$ sudo apt install nginx php8.2-fpm -y
+`$ sudo a2enmod rewrite`
 
-## Modify NGINX file
+El comando anterior habilitará el modo de reescribir o te informará si ya está
+en uso. Después de esto, reinicia Apache:
 
-sudo nano /etc/nginx/sites-available/default
+`$ sudo service apache2 restart`
 
-and paste there the server code.
+## Install PHP-FPM
 
-In 
-root        "/home/user/repo/apps/web";
-you will need to put the path in wich the code of the web is.
+To install PHP for Nginx, support with another apt-get install command, tou can
+replace 8.2 with the desired PHP version, but you may need to make some changes:
+Our PHP version is 8.2.
 
+`$ sudo apt install nginx php{PHP version}-fpm`
 
-## How to validate an Nginx config file
-The following command validates the updated Nginx config file to ensure the edits do not create any syntax errors:
+Once the installation is complete, you can start the PHP-FPM service by running
+the following command:
 
-sudo nginx -t
-nginx php config: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx php-fpm config: configuration file /etc/nginx/nginx.conf test is successful
+`$ sudo systemctl start php{PHP version}-fpm`
 
-## To enable the Nginx PHP fastCGI setup, restart the server:
+Comprovate:
 
-sudo systemctl restart nginx
+`$ sudo systemctl status php{PHP version}-fpm`
+
+It should return you:
+
+```
+(...)
+Active: active (running)
+(...)
+```
+
+## Configure Apache to use PHP-FPM
+
+To configure Apache to use PHP-FPM, you need to enable the “proxy_fcgi” and
+“proxy” modules. You can do this by running the following command:
+
+`$ sudo a2enmod proxy_fcgi proxy`
+
+Create a new configuration file for your virtual host using the following
+command, in domain you can put you romain name or dejarlo como esta:
+
+`$ sudo nano /etc/apache2/sites-available/[domain].com.conf`
+
+In this case my [domain] will be rogerrovira. Inside the new configuration file,
+add the following configuration with PHP-FPM:
+
+```
+<VirtualHost *:80>
+    ServerName [domain].com
+    ServerAlias www.[domain].com
+    DocumentRoot [root]/site/apps/web
+
+    <Directory [root]/site/apps/web>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/php[version]-fpm.sock|fcgi://localhost/"
+    </FilesMatch>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+[root] needs to be the root in where tou have made the git clone of the code.
+For example in mys case, [root] will be /var/www
+
+[domain] tyour domain and [version] your PHP version. In my case [domain] =
+rogerrovira and [version] = 8.2
+
+Save and close the file by pressing CTRL+X, then Y and ENTER.
+
+You may need to:
+
+```
+sudo a2dissite 000-default
+sudo systemctl reload apache2
+```
+
+And enable the new virtual host by running the following command:
+
+`$ sudo a2ensite [domain].com.conf`
+
+Reload the Apache web server to apply the changes:
+
+`$ sudo systemctl reload apache2`
