@@ -1,7 +1,3 @@
-@import '/styles/palette.css';
-@import '/styles/models.css';
-@import '/styles/text.css';
-
 :root {
   --max-width: 1468px;
 }
