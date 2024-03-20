@@ -1,27 +1,26 @@
-let CloseMobileNavigation = (menu, name) => {
+let CloseMenuNavigation = (menu, name) => {
   if (menu.classList.contains(name)) {
     menu.classList.remove(name);
   }
 };
 
-let ToggleMobileNavigation = (menu, name) => {
+let ToggleMenuNavigation = (menu, name) => {
   menu.classList.toggle(name);
 };
 
-function SetMobileNavigation() {
-  let class_name = 'mobile-menu__opened';
-  let navigation_menu = document.getElementById('navigation-menu');
+function SetMenuNavigation() {
+  let class_name = 'menu__opened';
+  let nav_menu = document.getElementById('navigation-menu');
 
-  let mobile__checkbox = document.getElementById('mobile__menu-input');
-  mobile__checkbox.addEventListener('change', () =>
-    ToggleMobileNavigation(navigation_menu, class_name),
+  let checkbox = document.getElementById('menu-input');
+  checkbox.addEventListener('change', () =>
+    ToggleMenuNavigation(nav_menu, class_name),
   );
 
-  addEventListener('resize', () =>
-    CloseMobileNavigation(navigation_menu, class_name),
-  );
+  addEventListener('resize', () => CloseMenuNavigation(nav_menu, class_name));
 }
 
+// TODO
 let ToggleTheme = () => {
   let theme = document.documentElement.getAttribute('theme');
 
@@ -37,6 +36,7 @@ let ToggleTheme = () => {
   }
 };
 
+// TODO
 function SetToggleTheme() {
   let laptop__checkbox = document.querySelector('.laptop__toggle-theme input');
   let mobile__checkbox = document.querySelector('.mobile__toggle-theme input');
@@ -46,6 +46,7 @@ function SetToggleTheme() {
   );
 }
 
+// TODO
 let OnScroll = (name, menu, footer) => {
   let offest = 642;
   let y = window.scrollY;
@@ -60,6 +61,7 @@ let OnScroll = (name, menu, footer) => {
   }
 };
 
+// TODO
 function SetFooterDetection() {
   let class_name = 'footer-detected';
   let navigation_menu = document.getElementById('navigation-menu');
@@ -70,23 +72,12 @@ function SetFooterDetection() {
   );
 }
 
-export async function AddNavigationMenu() {
-  const response = await fetch(
-    'http://192.168.0.100:80/reusable/navigation.html',
-  );
+function Main() {
+  SetMenuNavigation();
+  // SetToggleTheme();
+  // SetFooterDetection();
 
-  if (response.ok) {
-    let layout = await response.text();
-    let body = document.body;
-
-    body.insertAdjacentHTML('beforebegin', layout);
-
-    SetMobileNavigation();
-    SetToggleTheme();
-    SetFooterDetection();
-
-    return;
-  }
-
-  console.log("Error, the navigation bar couldn't be found.");
+  return;
 }
+
+Main();
