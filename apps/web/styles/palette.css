@@ -1,31 +1,24 @@
 @layer light-palette {
   :root {
     --white: white;
-    --white-smoke: whitesmoke;
+    --white-smoke: #e6e6e6;
 
-    --green: #4cc37b;
-
-    --dark-gray: #818181;
-    --gray: #ababab;
-    --soft-gray: #dadada;
+    --gray: #8c8c8c;
 
     --black: black;
-    --soft-black: #141414;
+    --soft-black: #212121;
   }
 }
 
+/* TODO */
 @layer dark-palette {
   [theme='dark'] {
-    --white: #0b0b0b;
-    --white-smoke: #141414;
+    --white: white;
+    --white-smoke: #e6e6e6;
 
-    --green: #3a8c5b;
+    --gray: #8c8c8c;
 
-    --dark-gray: #a1a1a6;
-    --gray: #959595;
-    --soft-gray: #373737;
-
-    --black: white;
-    --soft-black: #a1a1a6;
+    --black: black;
+    --soft-black: #212121;
   }
 }

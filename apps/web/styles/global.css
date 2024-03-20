@@ -4,16 +4,17 @@
 
 @media (min-width: 768px) {
   :root {
-    --borders-pad: 54px;
+    --borders-pad: 32px;
   }
 }
 
 @media (max-width: 768px) {
   :root {
-    --borders-pad: 32px;
+    --borders-pad: 24px;
   }
 }
 
+/* TODO */
 @layer scrollbar {
   ::-webkit-scrollbar {
     width: 6px;
@@ -46,6 +47,7 @@
   }
 }
 
+/* TODO */
 @layer selection {
   [theme='light'] ::selection {
     background: #ebfef3;
@@ -70,6 +72,14 @@ main {
 main > * {
   padding-left: var(--borders-pad);
   padding-right: var(--borders-pad);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 li {
