@@ -1,5 +1,6 @@
 :root {
   --max-width: 1468px;
+  --grid-gap: 16px;
 }
 
 @media (min-width: 768px) {
@@ -76,10 +77,23 @@ main > * {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(18, minmax(0, 1fr));
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+
+  gap: var(--grid-gap);
+}
+
+.grid-2 {
+  display: grid;
+  align-items: center;
+  justify-content: space-between;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+
+  gap: var(--grid-gap);
+
+  padding-left: calc(var(--grid-gap) / 2);
+  padding-right: calc(var(--grid-gap) / 2);
 }
 
 li {
