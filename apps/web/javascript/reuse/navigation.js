@@ -10,7 +10,7 @@ let ToggleMenuNavigation = (menu, name) => {
 
 function SetMenuNavigation() {
   let class_name = 'menu__opened';
-  let nav_menu = document.getElementById('navigation-menu');
+  let nav_menu = document.getElementById('nav-menu');
 
   let checkbox = document.getElementById('menu-input');
   checkbox.addEventListener('change', () =>
@@ -64,7 +64,7 @@ let OnScroll = (name, menu, footer) => {
 // TODO
 function SetFooterDetection() {
   let class_name = 'footer-detected';
-  let navigation_menu = document.getElementById('navigation-menu');
+  let navigation_menu = document.getElementById('nav-menu');
   let footer = document.getElementById('footer-page');
 
   window.addEventListener('scroll', () =>
