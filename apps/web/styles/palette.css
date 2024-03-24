@@ -22,3 +22,10 @@
     --soft-black: #212121;
   }
 }
+
+@layer global-colors {
+  :root {
+    --clr-line-1: var(--white-smoke);
+    --clr-line-2: var(--soft-black);
+  }
+}

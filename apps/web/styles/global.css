@@ -1,6 +1,6 @@
 @layer general-variables {
   :root {
-    --max-width: 1642px;
+    --max-width: 1860px;
     --grid-gap: 16px;
   }
 
@@ -91,5 +91,20 @@
 
   li {
     list-style: none;
+  }
+
+  ul,
+  ol {
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 }
