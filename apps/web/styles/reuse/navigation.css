@@ -204,7 +204,7 @@
   }
 
   @layer menu-content {
-    .menu-content {
+    #menu-content {
       z-index: 50;
 
       position: fixed;
@@ -220,35 +220,35 @@
       transition: all 0.32s;
     }
 
-    #nav-menu.menu__opened .menu-content {
+    #nav-menu.menu__opened #menu-content {
       top: 0;
       opacity: 1;
     }
 
-    .menu-content .left-panel,
-    .menu-content .right-panel {
+    #menu-content .left-panel,
+    #menu-content .right-panel {
       width: 100%;
       height: 100%;
     }
 
-    .menu-content > * > div {
+    #menu-content > * > div {
       padding-top: var(--bar-height);
       height: calc(100% - var(--bar-height) * 2);
     }
 
     @layer left-panel {
-      .menu-content .left-panel {
+      #menu-content .left-panel {
         grid-column: 1 / 10;
         background-color: var(--black);
       }
 
-      .menu-content .left-panel > div {
+      #menu-content .left-panel > div {
         padding-left: var(--borders-pad);
         border-bottom: 1px solid var(--clr-line-2);
       }
 
       @layer buttons-list {
-        .btns-list {
+        .nav-btns-list {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
@@ -256,7 +256,7 @@
           height: 100%;
         }
 
-        .btns-list button {
+        .nav-btns-list button {
           height: 100%;
 
           padding: 0;
@@ -271,15 +271,18 @@
         }
 
         @layer link {
-          .btns-list button .link {
+          .nav-btns-list button .link {
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
+
+            position: relative;
+            z-index: 10;
           }
 
           @layer title {
-            .btns-list button .link .title {
+            .nav-btns-list button .link .title {
               display: flex;
               flex-direction: row;
               align-items: flex-start;
@@ -287,20 +290,20 @@
               gap: 56px;
             }
 
-            .btns-list button .link .title p {
+            .nav-btns-list button .link .title p {
               font-size: 1.64rem;
               text-align: start;
               color: var(--soft-black);
             }
 
-            .btns-list button .link .title h1 {
+            .nav-btns-list button .link .title h1 {
               color: var(--white);
               padding-top: 12px;
             }
           }
 
           @layer arrow {
-            .btns-list button .link .arrow {
+            .nav-btns-list button .link .arrow {
               display: flex;
               align-items: center;
               justify-content: center;
@@ -313,12 +316,12 @@
               border: 2px solid var(--clr-line-2);
             }
 
-            .btns-list button .link .arrow svg {
+            .nav-btns-list button .link .arrow svg {
               width: 26px;
               height: 26px;
             }
 
-            .btns-list button .link .arrow svg path {
+            .nav-btns-list button .link .arrow svg path {
               fill: none;
               stroke-width: 1;
               stroke: var(--clr-line-2);
@@ -326,20 +329,127 @@
           }
         }
 
-        @layer hovered {
+        @layer hover-background {
+          .hover-bg {
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+            height: 0%;
+            background-color: var(--white-smoke);
+            display: block;
+            top: auto;
+            bottom: 0%;
+            left: 0%;
+            right: 0%;
+          }
         }
       }
     }
 
     @layer right-panel {
-      .menu-content .right-panel {
+      #menu-content .right-panel {
+        position: relative;
+
         grid-column: 10 / -1;
         background-color: var(--white);
       }
 
-      .menu-content .right-panel > div {
+      #menu-content .right-panel > div {
         padding-right: var(--borders-pad);
         border-bottom: 1px solid var(--clr-line-1);
+      }
+
+      @layer web-information {
+        .web-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+
+          height: 100%;
+          width: 100%;
+
+          position: relative;
+          z-index: 10;
+        }
+
+        .web-info > * {
+          padding: 18px 0;
+        }
+
+        .web-info p,
+        .web-info a,
+        .web-info span {
+          font-size: 0.78rem;
+        }
+
+        @layer top {
+          .web-info > div:first-child span {
+            font-weight: 500;
+          }
+        }
+
+        @layer bottom {
+          .web-info > div:last-child {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+
+            width: 100%;
+          }
+
+          @layer links {
+            .web-info .links {
+              display: flex;
+              flex-direction: row;
+              gap: 22px;
+            }
+
+            .web-info .links p {
+              font-weight: 500;
+            }
+
+            .web-info .links ul {
+              display: flex;
+              flex-direction: column;
+              gap: 3px;
+            }
+
+            .web-info .links ul a {
+              color: var(--gray);
+            }
+
+            .web-info .links ul a:hover {
+              color: var(--black);
+            }
+          }
+
+          @layer socials {
+            .web-info .socials {
+            }
+          }
+        }
+      }
+
+      @layer my-name {
+        .my-name {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          justify-content: center;
+
+          position: absolute;
+          inset: 0;
+        }
+
+        .my-name h5 {
+          opacity: 0.4;
+          color: var(--white-smoke);
+        }
+      }
+
+      @layer page-image {
       }
     }
   }
