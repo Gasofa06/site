@@ -13,7 +13,3 @@ RewriteRule ^contact$ /layouts/main/contact.php [L]
 RewriteRule ^imprint$ /layouts/main/imprint.php [L]
 RewriteRule ^privacy$ /layouts/main/privacy.php [L]
 RewriteRule ^colphon$ /layouts/main/colphon.php [L]
-
-RewriteRule ^reuse/notice$ /layouts/reuse/notice.php [L]
-RewriteRule ^reuse/footer$ /layouts/reuse/footer.php [L]
-RewriteRule ^reuse/navigation$ /layouts/reuse/navigation.php [L]
