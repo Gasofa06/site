@@ -1,23 +1,21 @@
-<?php
-  include($_SERVER['DOCUMENT_ROOT'] . "/layouts/reuse/notice.html");
-?>
+<?php $reuse = $_SERVER['DOCUMENT_ROOT']."/layouts/reuse/"; ?>
+<?php include($reuse."notice.html"); ?>
 
 <!DOCTYPE html>
 
 <html lang="en" theme="light">
 
-<?php 
-    include( $_SERVER['DOCUMENT_ROOT'] . "/layouts/reuse/head.html");
-?>
+<?php include($reuse."head.html"); ?>
 
 <body data-barba="wrapper">
-    <?php
-      include($_SERVER['DOCUMENT_ROOT'] . "/layouts/reuse/navigation.html");
-    ?>
+    <?php include($reuse."load.html"); ?>
 
-    <main data-barba="container" data-b arba-namespace="home">
+    <main data-barba="container" data-barba-namespace="home">
+        <!-- Content of the home page -->
         <section></section>
     </main>
+
+    <?php include($reuse."footer.html"); ?>
 </body>
 
 </html>
