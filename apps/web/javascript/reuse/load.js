@@ -1,6 +1,129 @@
 import { Delay } from '/javascript/utils.js';
 
-function InitHomeLoader() {}
+function animationLoadHome() {
+  let tl = gsap.timeline();
+
+  tl.set('#loader > .screen', {
+    scale: 1,
+  });
+
+  tl.call(function () {
+    scroll.stop();
+  });
+
+  tl.to(
+    '#loader',
+    {
+      opacity: 1,
+      duration: 0.3,
+    },
+    1,
+  );
+
+  tl.to(
+    '#loader > .screen',
+    {
+      borderRadius: '16px',
+      duration: 0.1,
+    },
+    '<',
+  );
+
+  tl.to(
+    '#loader > .screen',
+    {
+      scale: 0.9,
+      duration: 0.6,
+      ease: 'power1.inOut',
+    },
+    '<',
+  );
+
+  (function () {
+    let colors = {
+      black: '#000000',
+      red: '#ff2a00',
+      blue: '#466cf7',
+      yellow: '#f9e169',
+      gray: '#f0f0f0',
+      green: '#58d381',
+    };
+
+    Object.entries(colors).map(([key, clr], idx) => {
+      if (idx === 0) {
+        tl.set(
+          '#loader .logo rect',
+          {
+            fill: clr,
+          },
+          '-=0.15',
+        );
+
+        tl.set('#loader .logo', {
+          y: 64,
+          opacity: 1,
+        });
+
+        tl.to('#loader .logo', {
+          y: 0,
+          duration: 0.25,
+        });
+      } else {
+        tl.to(
+          '#loader .logo rect',
+          {
+            fill: clr,
+            duration: 0,
+          },
+          '+=0.15',
+        );
+      }
+    });
+
+    tl.to(
+      '#loader .logo',
+      {
+        y: -64,
+        duration: 0.25,
+      },
+      '+=0.35',
+    );
+  })();
+
+  tl.to(
+    '#loader > .screen',
+    {
+      scale: 1,
+      duration: 0.6,
+      ease: 'power1.inOut',
+    },
+    '+=0.4',
+  );
+
+  tl.to(
+    '#loader > .screen',
+    {
+      borderRadius: '0px',
+      duration: 0.1,
+    },
+    '-=0.1',
+  );
+
+  tl.to(
+    '#loader',
+    {
+      opacity: 0,
+      duration: 0.1,
+    },
+    '<',
+  );
+
+  tl.call(function () {
+    scroll.start();
+  });
+}
+
+function animLoadDefault() {}
 
 /**
  * Animation - Page transition out
@@ -163,26 +286,32 @@ function PageTransitionIn() {
 }
 
 /**
- * Initialize locomotive scroll
+ * Initialize Locomotive Scroll.
+ * Set Scroll Trigger methods.
  */
-function InitSmoothScroll(container) {
+function InitSmoothScroll() {
+  let scroll_attr = `[${window.scroll_attr}]`;
+  let scroll_container = $(scroll_attr)[0];
+
   scroll = new LocomotiveScroll({
-    el: window.scroll_container,
+    el: scroll_container,
     name: 'smooth-scroll',
     smooth: true,
   });
 
   $(window).on('resize', () => {
-    // Updates all element positions.
+    // Called each time the size of the window changes.
+    // Refresh ScrollTrigger and update LocomotiveScroll.
     scroll.update();
   });
 
   scroll.on('scroll', () => {
-    // Checks where the scrollbar is and updates all ScrollTrigger instances.
+    // Called each time the user scrolls.
+    // Checks where the scrollbar is and updates ScrollTrigger instances.
     ScrollTrigger.update();
   });
 
-  ScrollTrigger.scrollerProxy(`[${window.scroll_container_attr}]`, {
+  ScrollTrigger.scrollerProxy(scroll_attr, {
     scrollTop: function (value) {
       return arguments.length
         ? scroll.scrollTo(value, 0, 0)
@@ -196,37 +325,21 @@ function InitSmoothScroll(container) {
         height: window.innerHeight,
       };
     },
-    // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
-    pinType: container.querySelector(`[${window.scroll_container_attr}]`).style
-      .transform
-      ? 'transform'
-      : 'fixed',
   });
 
   ScrollTrigger.defaults({
-    scroller: document.querySelector(`[${window.scroll_container_attr}]`),
+    scroller: scroll_container,
   });
 
-  /**
-   * Remove Old Locomotive Scrollbar
-   */
-
-  const scrollbar = selectAll('.c-scrollbar');
-
-  if (scrollbar.length > 1) {
-    scrollbar[0].remove();
-  }
-
-  // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll.
-  ScrollTrigger.addEventListener('refresh', () => scroll.update());
-
-  // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
-  ScrollTrigger.refresh();
+  ScrollTrigger.addEventListener('refresh', () => {
+    // Called each time the window updates.
+    // Refresh ScrollTrigger and update LocomotiveScroll.
+    scroll.update();
+  });
 }
 
 let OnTransitionStart = () => {
   $('html').attr('in-transition', true);
-  console.log('Page transition started...');
 };
 
 let OnTransitionFinish = () => {
@@ -237,24 +350,39 @@ let OnTransitionFinish = () => {
 
 let AfterEnter = () => {
   window.scrollTo(0, 0);
-  initCookieViews();
 };
 
 /**
- * Call page initializers
+ * Prepare the page.
  *
- * @param {object} container Barba container
- * @param {boolean} is_home True if goes home
+ * @param {string} namespace Name of the next page.
  */
-let OnPageLoad = (container, namespace) => {
-  InitSmoothScroll(container);
-  initScript();
-  initCookieViews();
+let OnPageLoad = namespace => {
+  InitSmoothScroll();
+
+  /*
+  (function () {
+    select('body').classList.remove('is-loading');
+    initWindowInnerheight();
+    initCheckTouchDevice();
+    initHamburgerNav();
+    initMagneticButtons();
+    initStickyCursorWithDelay();
+    initVisualFilter();
+    initScrolltriggerNav();
+    initScrollLetters();
+    initTricksWords();
+    initContactForm();
+    initTimeZone();
+    initLazyLoad();
+    initPlayVideoInview();
+    initScrolltriggerAnimations();
+  })();*/
 
   if (namespace === 'home') {
-    InitHomeLoader();
+    animationLoadHome();
   } else {
-    InitDefaultLoader();
+    animLoadDefault();
   }
 };
 
@@ -287,7 +415,7 @@ function InitPageTransitions() {
       {
         name: 'default',
         once(data) {
-          OnPageLoad(data.next.container, data.next.namespace);
+          OnPageLoad(data.next.namespace);
         },
         async leave(data) {
           PageTransitionIn(data.current);
@@ -312,20 +440,26 @@ function InitPageTransitions() {
           namespace: ['home'],
         },
         once(data) {
-          OnPageLoad(data.next.container, data.next.namespace);
+          OnPageLoad(data.next.namespace);
         },
       },
     ],
   });
 }
 
+/**
+ * Set scroll container.
+ */
 function SetScrollContainer() {
-  let $body = $('body');
-  window.scroll_container = $body[0];
-  window.scroll_container_attr = 'data-scroll-container';
-  $body.attr(window.scroll_container_attr);
+  window.scroll_attr = 'data-scroll-container';
+
+  let $scroll_container = $('body');
+  $scroll_container.attr(window.scroll_attr, '');
 }
 
+/**
+ * Main function.
+ */
 function Main() {
   gsap.registerPlugin(ScrollTrigger);
   scroll;

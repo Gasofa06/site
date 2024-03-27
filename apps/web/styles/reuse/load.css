@@ -1,0 +1,61 @@
+@layer page-loader {
+  #loader {
+    display: block;
+
+    position: fixed;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+
+    width: 100%;
+    height: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    background: var(--black);
+
+    z-index: 90;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  @layer screen {
+    #loader .screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 100%;
+      height: 100%;
+
+      margin-left: auto;
+      margin-right: auto;
+
+      background-color: var(--white);
+      border-radius: 0px;
+    }
+
+    @layer logo {
+      #loader .logo-mask {
+        object-fit: fill;
+        overflow: hidden;
+      }
+
+      #loader .logo {
+        width: 64px;
+        height: 64px;
+
+        opacity: 0;
+      }
+
+      #loader .logo > svg {
+        width: 100%;
+        height: 100%;
+
+        border-radius: 6px;
+      }
+    }
+  }
+}

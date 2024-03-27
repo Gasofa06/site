@@ -8,7 +8,7 @@
 <?php include($reuse."head.html"); ?>
 
 <body data-barba="wrapper">
-    <?php include($reuse."load.html"); ?>
+    <?php include($reuse."load.php"); ?>
 
     <main data-barba="container" data-barba-namespace="home">
         <!-- Content of the home page -->
