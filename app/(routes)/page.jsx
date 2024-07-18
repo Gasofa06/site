@@ -1,5 +1,11 @@
-// Unique UI of a route and make routes publicly accessible
+'use client';
 
-export default function Page() {
-  return <h1>Hello, Next.js!</h1>;
+import Try from '@/components/try';
+
+export default function HomePage() {
+  return (
+    <div>
+      <Try color="green"></Try>
+    </div>
+  );
 }

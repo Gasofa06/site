@@ -1,1 +1,0 @@
-// Loading UI for a segment and its children
